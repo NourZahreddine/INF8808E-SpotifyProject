@@ -1,0 +1,315 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+html, body {
+    height: 100vh !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+.stApp {
+    background-color: #191919 !important;
+    color: #FFFFFF !important;
+    font-family: 'Inter', Arial, sans-serif !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.main .block-container {
+    height: 100vh !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    padding-top: 180px !important;
+    max-width: 100% !important;
+}
+
+
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #191919;
+    padding: 1rem 0 1.5rem 0;
+    flex-shrink: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(29, 185, 84, 0.2);
+    height: 140px;
+}
+
+.main-header {
+    background: linear-gradient(135deg, #1DB954 0%, #43E97B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.8rem !important;
+    font-weight: 800 !important;
+    font-style: italic !important;
+    margin-bottom: 0 !important;
+    text-align: left;
+    padding-left: 3rem;
+}
+
+.subtitle {
+    color: #43E97B !important;
+    font-size: 1.2rem !important;
+    font-style: italic !important;
+    margin-top: 0.3rem !important;
+    margin-bottom: 0 !important;
+    font-weight: 400;
+    padding-left: 2rem;
+}
+
+/* Curved tab container */
+.curved-tabs-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1DB954 0%, #43E97B 100%);
+    border-radius: 50px 0 0 50px;
+    padding: 1rem 3rem 1rem 4rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    min-width: 60%;
+    justify-content: space-around;
+}
+
+.header-tab-btn {
+    background: transparent !important;
+    color: #FFFFFF !important;
+    border: 2px solid transparent !important;
+    border-radius: 25px !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    margin: 0 6px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Inter', Arial, sans-serif !important;
+    flex: 1;
+    text-align: center;
+}
+
+.header-tab-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.header-tab-btn.active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid #FFFFFF !important;
+}
+
+/* Invisible overlay buttons */
+.invisible-tab-buttons {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 60% !important;
+    height: 150px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    z-index: 1000 !important;
+    pointer-events: none !important;
+    margin-top: -150px !important;
+}
+
+.invisible-tab-buttons .stButton {
+    pointer-events: all !important;
+    opacity: 0 !important;
+    width: 180px !important;
+    height: 60px !important;
+}
+
+.invisible-tab-buttons .stButton > button {
+    width: 100% !important;
+    height: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+}
+
+.css-1d391kg, .css-1v0mbdj {
+    background-color: #191919 !important;
+}
+
+.stSidebar > div {
+    background-color: #191919 !important;
+    border-right: 1px solid #1DB954;
+}
+
+.stSidebar .stSelectbox > div > div {
+    background-color: #1DB954 !important;
+    color: #FFFFFF !important;
+    border-radius: 25px !important;
+    border: none !important;
+    font-weight: 600;
+}
+
+/* Tab styling for content area */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background-color: #191919 !important;
+    display: none; /* Hide since we're using custom header tabs */
+}
+
+.stTabs [data-baseweb="tab"] {
+    background-color: #2A2A2A !important;
+    color: #FFFFFF !important;
+    border-radius: 25px !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    padding: 12px 24px !important;
+    border: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+.stTabs [aria-selected="true"] {
+    background-color: #1DB954 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #43E97B !important;
+}
+
+
+.chart-container {
+    background-color: #191919 !important;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+
+.stButton > button,
+button[kind="primary"],
+button[kind="secondary"] {
+    background: #1DB954 !important;
+    background-image: linear-gradient(135deg, #1DB954 0%, #43E97B 100%) !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 25px !important;
+    padding: 8px 16px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    margin: 5px 3px !important;
+    box-shadow: none !important;
+}
+
+
+button[kind="primary"] {
+    background: #43E97B !important;
+    background-image: linear-gradient(135deg, #43E97B 0%, #1DB954 100%) !important;
+    color: #191919 !important;
+    font-weight: 800 !important;
+    border: 2px solid #FFFFFF !important;
+    box-shadow: 0 4px 15px rgba(67, 233, 123, 0.4) !important;
+    transform: translateY(-1px) !important;
+}
+
+
+button[kind="secondary"] {
+    background: rgba(29, 185, 84, 0.3) !important;
+    background-image: none !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 500 !important;
+    border: 1px solid rgba(67, 233, 123, 0.3) !important;
+}
+
+.stButton > button:hover,
+button[kind="primary"]:hover,
+button[kind="secondary"]:hover {
+    background: #0D7D2C !important;
+    background-image: linear-gradient(135deg, #0D7D2C 0%, #1DB954 100%) !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(29, 185, 84, 0.3) !important;
+    border: none !important;
+}
+
+
+button[kind="primary"]:hover {
+    background: #3AE571 !important;
+    background-image: linear-gradient(135deg, #3AE571 0%, #43E97B 100%) !important;
+    color: #191919 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(67, 233, 123, 0.6) !important;
+    border: 2px solid #FFFFFF !important;
+}
+
+
+.filter-header {
+    color: #FFFFFF !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.5rem !important;
+    text-align: center;
+}
+
+
+.graph-counter {
+    color: #43E97B !important;
+    font-size: 0.8rem !important;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+.metric-container {
+    background: linear-gradient(135deg, #2A2A2A 0%, #1A1A1A 100%);
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid #1DB954;
+    margin: 5px 0;
+}
+
+
+.main-content {
+    padding: 1rem;
+    background-color: #191919;
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .curved-tabs-container {
+        position: relative;
+        border-radius: 25px;
+        margin-top: 1rem;
+        min-width: 100%;
+        justify-content: center;
+    }
+    
+    .main-header {
+        font-size: 2rem !important;
+        text-align: center;
+        padding-left: 0;
+    }
+    
+    .subtitle {
+        text-align: center;
+        padding-left: 0;
+    }
+    
+    .invisible-tab-buttons {
+        position: relative !important;
+        margin-top: 0 !important;
+        width: 100% !important;
+    }
+} 
