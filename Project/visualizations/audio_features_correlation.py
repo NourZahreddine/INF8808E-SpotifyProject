@@ -25,7 +25,6 @@ def create_audio_features_correlation():
         vertical_spacing=0.15
     )
     
-    # Define a consistent colorscale
     colorscale = [
         [0, '#1a1a2e'],     
         [0.25, '#16213e'],   
