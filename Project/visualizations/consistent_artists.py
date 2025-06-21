@@ -1,8 +1,14 @@
 import plotly.graph_objects as go
-from .utils import df, get_modern_layout
+import plotly.express as px
+import pandas as pd
+from .utils import get_modern_layout
 
-def create_consistent_artists():
-    solo_artists_df = df[~df['artists'].str.contains(';', na=False)]
+def create_consistent_artists(data=None):
+
+    if data is None:
+        data = pd.read_csv('data/dataset.csv')
+
+    solo_artists_df = data[~data['artists'].str.contains(';', na=False)]
     
     artist_stats = solo_artists_df.groupby('artists').agg({
         'popularity': ['mean', 'std', 'count'],

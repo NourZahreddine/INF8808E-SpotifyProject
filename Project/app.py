@@ -25,6 +25,12 @@ def load_data():
 
 df = load_data()
 
+@st.cache_data
+def filter_data_by_genre(df, selected_genres):
+    if 'All Genres' in selected_genres or not selected_genres:
+        return df
+    return df[df['track_genre'].isin(selected_genres)]
+
 def load_css(file_name):
     with open(file_name) as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -55,6 +61,19 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+if 'filter_panel_open' not in st.session_state:
+    st.session_state.filter_panel_open = False
+
+all_genres = sorted(df['track_genre'].unique())
+genre_options = ['All Genres'] + all_genres
+
+
+if 'show_filter' not in st.session_state:
+    st.session_state.show_filter = False
+
+
+selected_genres = st.session_state.get('genre_filter', ['All Genres'])
+filtered_df = filter_data_by_genre(df, selected_genres)
 
 tab_descriptions = {
     "Track's Popularity": {
@@ -140,7 +159,6 @@ graph_config = {
     }
 }
 
-
 if st.session_state.show_onboarding:
     st.info("""
     👋 **Welcome to Analyzing the Beat!** 
@@ -161,9 +179,9 @@ if st.session_state.show_onboarding:
         st.rerun()
 
 
-st.markdown("---") 
-st.markdown("<br>", unsafe_allow_html=True)  
+st.markdown('<div class="main-content-area">', unsafe_allow_html=True)
 
+st.markdown("---")
 
 col1, col2, col3 = st.columns(3)
 with col1:
@@ -190,6 +208,38 @@ st.markdown(f"""
     <p style='color: #B8B8B8; margin: 0.5rem 0 0 0; font-style: italic;'>{current_tab_info['insights']}</p>
 </div>
 """, unsafe_allow_html=True)
+
+
+if 'show_filter' not in st.session_state:
+    st.session_state.show_filter = False
+
+if st.button("Filter by Genres", key="filter_toggle", help="Click to show/hide genre filter"):
+    st.session_state.show_filter = not st.session_state.show_filter
+
+
+if st.session_state.show_filter:
+    st.markdown("### Select Genres to Filter:")
+    
+    col1, col2 = st.columns([3, 1])
+    
+    with col1:
+        selected_genres = st.multiselect(
+            "Choose genres:",
+            options=genre_options,
+            default=st.session_state.get('genre_filter', ['All Genres']),
+            key="genre_filter"
+        )
+    
+    with col2:
+        filtered_df_temp = filter_data_by_genre(df, selected_genres)
+        if 'All Genres' not in selected_genres and selected_genres:
+            st.success(f"**{len(selected_genres)}** genres")
+            st.info(f"**{len(filtered_df_temp):,}** tracks")
+        else:
+            st.info(f"**All genres**")
+            st.info(f"**{len(df):,}** tracks")
+    
+    st.markdown("---")
 
 st.markdown('<div class="main-content">', unsafe_allow_html=True)
 
@@ -225,7 +275,7 @@ def display_graph_with_navigation(tab_name, tab_key):
 
     try:
         with st.spinner("Loading visualization..."):
-            fig = current_graph['func']()
+            fig = current_graph['func'](filtered_df)
             st.plotly_chart(fig, use_container_width=True, key=f"{tab_key}_{current_index}")
     except Exception as e:
         st.error(f"Error loading visualization: {str(e)}")
@@ -246,7 +296,7 @@ def display_graph_with_navigation(tab_name, tab_key):
                 st.session_state.graph_indices[tab_name] = max(0, current_index - 1)
                 st.rerun()
         else:
-            st.markdown("<div style='height: 38px;'></div>", unsafe_allow_html=True)  # Spacer
+            st.markdown("<div style='height: 38px;'></div>", unsafe_allow_html=True)  
     
     with col3:
         st.markdown(f"<div style='text-align: center; color: #43E97B; font-weight: 600; padding: 8px;'>{current_index + 1}/{len(graphs)}</div>", unsafe_allow_html=True)
@@ -257,7 +307,7 @@ def display_graph_with_navigation(tab_name, tab_key):
                 st.session_state.graph_indices[tab_name] = min(len(graphs) - 1, current_index + 1)
                 st.rerun()
         else:
-            st.markdown("<div style='height: 38px;'></div>", unsafe_allow_html=True)  # Spacer
+            st.markdown("<div style='height: 38px;'></div>", unsafe_allow_html=True)  
 
 
 try:
@@ -272,10 +322,10 @@ except Exception as e:
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-
 st.markdown("---")
+
 st.markdown("""
 <div style='text-align: center; color: #43E97B; font-size: 0.9rem; margin-top: 2rem;'>
     INF8808E | Data from Spotify Dataset | 114,000 tracks analyzed across 20+ audio features
 </div>
-""", unsafe_allow_html=True) 
+""", unsafe_allow_html=True)

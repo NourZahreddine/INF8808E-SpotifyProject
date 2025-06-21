@@ -1,9 +1,13 @@
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from .utils import df, get_modern_layout
+from .utils import get_modern_layout
 
-def create_energy_time_analysis():
-    sample_df = df.sample(n=min(12000, len(df)), random_state=42)
+def create_energy_time_analysis(data=None):
+    if data is None:
+        import pandas as pd
+        data = pd.read_csv('data/dataset.csv')
+    
+    sample_df = data.sample(n=min(12000, len(data)), random_state=42)
     
     sample_df['energy_category'] = sample_df['energy'].apply(lambda x: 'High Energy (0.7+)' if x >= 0.7 else 'Medium Energy (0.4-0.7)' if x >= 0.4 else 'Low Energy (0-0.4)')
     
@@ -54,7 +58,7 @@ def create_energy_time_analysis():
                 row=1, col=1
             )
     
-    energy_stats = df.groupby(df['energy'].apply(lambda x: 'High Energy (0.7+)' if x >= 0.7 else 'Medium Energy (0.4-0.7)' if x >= 0.4 else 'Low Energy (0-0.4)'))['popularity'].agg(['mean', 'count', 'std']).reset_index()
+    energy_stats = data.groupby(data['energy'].apply(lambda x: 'High Energy (0.7+)' if x >= 0.7 else 'Medium Energy (0.4-0.7)' if x >= 0.4 else 'Low Energy (0-0.4)'))['popularity'].agg(['mean', 'count', 'std']).reset_index()
     energy_stats.columns = ['energy_category', 'avg_popularity', 'track_count', 'std_popularity']
     
     energy_stats['order'] = energy_stats['energy_category'].map({'Low Energy (0-0.4)': 0, 'Medium Energy (0.4-0.7)': 1, 'High Energy (0.7+)': 2})

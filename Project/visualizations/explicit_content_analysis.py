@@ -1,9 +1,14 @@
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from .utils import df, get_modern_layout
+import plotly.express as px
+from .utils import get_modern_layout
 
-def create_explicit_content_analysis():
-    explicit_stats = df.groupby('explicit').agg({
+def create_explicit_content_analysis(data=None):
+    if data is None:
+        import pandas as pd
+        data = pd.read_csv('data/dataset.csv')
+
+    explicit_stats = data.groupby('explicit').agg({
         'popularity': ['mean', 'std', 'count']
     }).round(2)
     
@@ -11,7 +16,7 @@ def create_explicit_content_analysis():
     explicit_stats = explicit_stats.reset_index()
     explicit_stats['label'] = explicit_stats['explicit'].map({True: 'Explicit', False: 'Clean'})
     
-    genre_explicit = df.groupby(['track_genre', 'explicit'])['popularity'].mean().unstack(fill_value=0)
+    genre_explicit = data.groupby(['track_genre', 'explicit'])['popularity'].mean().unstack(fill_value=0)
     top_genres_explicit = genre_explicit.head(10)
     
     fig = make_subplots(

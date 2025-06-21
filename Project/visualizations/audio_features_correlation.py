@@ -1,14 +1,20 @@
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from .utils import df, get_modern_layout
+from .utils import get_modern_layout
 
-def create_audio_features_correlation():
+def create_audio_features_correlation(data=None):
+
+    if data is None:
+        data = pd.read_csv('data/dataset.csv')
+    
+
+    df_work = data.copy()
    
-    df['energy_bins'] = pd.cut(df['energy'], bins=4, labels=['Low Energy', 'Med Energy', 'High Energy', 'Very High Energy'])
-    df['danceability_bins'] = pd.cut(df['danceability'], bins=4, labels=['Low Dance', 'Med Dance', 'High Dance', 'Very High Dance'])
-    df['valence_bins'] = pd.cut(df['valence'], bins=4, labels=['Low Valence', 'Med Valence', 'High Valence', 'Very High Valence'])
-    df['instrumentalness_bins'] = pd.cut(df['instrumentalness'], bins=4, labels=['Vocal', 'Mostly Vocal', 'Mostly Instrumental', 'Instrumental'])
+    df_work['energy_bins'] = pd.cut(df_work['energy'], bins=4, labels=['Low Energy', 'Med Energy', 'High Energy', 'Very High Energy'])
+    df_work['danceability_bins'] = pd.cut(df_work['danceability'], bins=4, labels=['Low Dance', 'Med Dance', 'High Dance', 'Very High Dance'])
+    df_work['valence_bins'] = pd.cut(df_work['valence'], bins=4, labels=['Low Valence', 'Med Valence', 'High Valence', 'Very High Valence'])
+    df_work['instrumentalness_bins'] = pd.cut(df_work['instrumentalness'], bins=4, labels=['Vocal', 'Mostly Vocal', 'Mostly Instrumental', 'Instrumental'])
     
 
     fig = make_subplots(
@@ -34,7 +40,7 @@ def create_audio_features_correlation():
     ]
     
     # Energy vs Danceability
-    heatmap1_data = df.groupby(['energy_bins', 'danceability_bins'])['popularity'].mean().reset_index()
+    heatmap1_data = df_work.groupby(['energy_bins', 'danceability_bins'])['popularity'].mean().reset_index()
     pivot1 = heatmap1_data.pivot(index='energy_bins', columns='danceability_bins', values='popularity')
     best1 = heatmap1_data.loc[heatmap1_data['popularity'].idxmax()]
     
@@ -51,7 +57,7 @@ def create_audio_features_correlation():
     )
     
     # Energy vs Valence  
-    heatmap2_data = df.groupby(['energy_bins', 'valence_bins'])['popularity'].mean().reset_index()
+    heatmap2_data = df_work.groupby(['energy_bins', 'valence_bins'])['popularity'].mean().reset_index()
     pivot2 = heatmap2_data.pivot(index='energy_bins', columns='valence_bins', values='popularity')
     best2 = heatmap2_data.loc[heatmap2_data['popularity'].idxmax()]
     
@@ -68,7 +74,7 @@ def create_audio_features_correlation():
     )
     
     # Danceability vs Valence
-    heatmap3_data = df.groupby(['danceability_bins', 'valence_bins'])['popularity'].mean().reset_index()
+    heatmap3_data = df_work.groupby(['danceability_bins', 'valence_bins'])['popularity'].mean().reset_index()
     pivot3 = heatmap3_data.pivot(index='danceability_bins', columns='valence_bins', values='popularity')
     best3 = heatmap3_data.loc[heatmap3_data['popularity'].idxmax()]
     
@@ -85,7 +91,7 @@ def create_audio_features_correlation():
     )
     
     # Energy vs Instrumentalness
-    heatmap4_data = df.groupby(['energy_bins', 'instrumentalness_bins'])['popularity'].mean().reset_index()
+    heatmap4_data = df_work.groupby(['energy_bins', 'instrumentalness_bins'])['popularity'].mean().reset_index()
     pivot4 = heatmap4_data.pivot(index='energy_bins', columns='instrumentalness_bins', values='popularity')
     best4 = heatmap4_data.loc[heatmap4_data['popularity'].idxmax()]
     

@@ -1,8 +1,13 @@
 import plotly.graph_objects as go
-from .utils import df, get_modern_layout
+import plotly.express as px
+from .utils import get_modern_layout
 
-def create_tempo_loudness_analysis():
-    sample_df = df.sample(n=min(8000, len(df)), random_state=42)
+def create_tempo_loudness_analysis(data=None):
+    if data is None:
+        import pandas as pd
+        data = pd.read_csv('data/dataset.csv')
+
+    sample_df = data.sample(n=min(8000, len(data)), random_state=42)
     
     fig = go.Figure()
     

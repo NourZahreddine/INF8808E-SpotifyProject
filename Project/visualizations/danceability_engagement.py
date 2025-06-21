@@ -1,14 +1,17 @@
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from .utils import df, get_modern_layout
+from .utils import get_modern_layout
 
-def create_danceability_engagement():
-    df['danceability_range'] = pd.cut(df['danceability'], 
+def create_danceability_engagement(data=None):
+    if data is None:
+        data = pd.read_csv('data/dataset.csv')
+
+    data['danceability_range'] = pd.cut(data['danceability'], 
                                      bins=[0, 0.3, 0.5, 0.9, 1.0], 
                                      labels=['Low Danceability (0-0.3)', 'Medium Danceability (0.3-0.5)', 'High Danceability (0.5-0.9)', 'Very High Danceability (0.9-1.0)'])
     
-    engagement_stats = df.groupby('danceability_range').agg({
+    engagement_stats = data.groupby('danceability_range').agg({
         'popularity': ['mean', 'std', 'count'],
         'energy': 'mean',
         'valence': 'mean'
@@ -24,7 +27,7 @@ def create_danceability_engagement():
         horizontal_spacing=0.15
     )
     
-    sample_df = df.sample(n=min(8000, len(df)), random_state=42)
+    sample_df = data.sample(n=min(8000, len(data)), random_state=42)
     colors = ['#1DB954', '#f39c12', '#e94560', '#9b59b6']
     
     for i, dance_range in enumerate(engagement_stats['danceability_range']):

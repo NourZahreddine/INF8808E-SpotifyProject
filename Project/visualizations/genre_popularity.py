@@ -1,9 +1,12 @@
 import plotly.express as px
-from .utils import df, get_modern_layout
+from .utils import get_modern_layout
 
-def create_genre_popularity_chart():
+def create_genre_popularity_chart(data=None):
+    if data is None:
+        import pandas as pd
+        data = pd.read_csv('data/dataset.csv')
 
-    genre_stats = df.groupby('track_genre').agg({
+    genre_stats = data.groupby('track_genre').agg({
         'popularity': ['mean', 'std', 'count'],
         'duration_ms': 'mean',
         'energy': 'mean',
@@ -13,13 +16,12 @@ def create_genre_popularity_chart():
     genre_stats.columns = ['avg_popularity', 'popularity_std', 'track_count', 'avg_duration', 'avg_energy', 'avg_danceability']
     
 
-    most_popular_tracks = df.loc[df.groupby('track_genre')['popularity'].idxmax()][['track_genre', 'track_name', 'artists', 'popularity']]
+    most_popular_tracks = data.loc[data.groupby('track_genre')['popularity'].idxmax()][['track_genre', 'track_name', 'artists', 'popularity']]
     genre_stats = genre_stats.merge(most_popular_tracks.set_index('track_genre'), left_index=True, right_index=True)
     genre_stats.rename(columns={'track_name': 'most_popular_track', 'artists': 'top_artist', 'popularity': 'max_popularity'}, inplace=True)
     
     top_genres = genre_stats.nlargest(20, 'avg_popularity')
     
-    # Format duration properly
     top_genres['duration_formatted'] = top_genres['avg_duration'].apply(
         lambda x: f"{int(x//60000)}:{int((x%60000)//1000):02d}"
     )

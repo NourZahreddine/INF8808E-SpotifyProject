@@ -1,9 +1,14 @@
 import plotly.graph_objects as go
-from .utils import df, get_modern_layout
+import plotly.express as px
+from .utils import get_modern_layout
 
-def create_energy_by_genre():
-    top_genres = df['track_genre'].value_counts().head(10).index
-    filtered_df = df[df['track_genre'].isin(top_genres)]
+def create_energy_by_genre(data=None):
+    if data is None:
+        import pandas as pd
+        data = pd.read_csv('data/dataset.csv')
+
+    top_genres = data['track_genre'].value_counts().head(10).index
+    filtered_df = data[data['track_genre'].isin(top_genres)]
     
 
     genre_stats = filtered_df.groupby('track_genre')['energy'].agg(['mean', 'median', 'std', 'count']).round(3)
