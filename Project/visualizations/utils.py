@@ -4,8 +4,10 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
 from scipy import stats
+import os
 
-df = pd.read_csv('data/dataset.csv')
+# Remove global dataset loading - will be handled in main app
+# df = pd.read_csv('data/dataset.csv')
 
 PRIMARY_BLUE = '#667EEA'
 SECONDARY_PURPLE = '#764BA2'

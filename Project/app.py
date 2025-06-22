@@ -11,6 +11,7 @@ from visualizations import (
     create_explicit_content_analysis
 )
 import pandas as pd
+import os
 
 st.set_page_config(
     page_title="Analyzing the Beat",
@@ -19,8 +20,24 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-
+@st.cache_data
 def load_data():
+    # Try different possible paths for Streamlit Cloud
+    possible_paths = [
+        'data/dataset.csv',
+        './data/dataset.csv', 
+        'Project/data/dataset.csv',
+        os.path.join(os.path.dirname(__file__), 'data', 'dataset.csv')
+    ]
+    
+    for path in possible_paths:
+        try:
+            if os.path.exists(path):
+                return pd.read_csv(path)
+        except:
+            continue
+    
+    # If none work, try the original path and let it fail with a clear error
     return pd.read_csv('data/dataset.csv')
 
 df = load_data()
