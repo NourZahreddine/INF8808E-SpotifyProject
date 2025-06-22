@@ -22,7 +22,6 @@ st.set_page_config(
 
 @st.cache_data
 def load_data():
-    # Try different possible paths for Streamlit Cloud
     possible_paths = [
         'data/dataset.csv',
         './data/dataset.csv', 
@@ -37,7 +36,6 @@ def load_data():
         except:
             continue
     
-    # If none work, try the original path and let it fail with a clear error
     return pd.read_csv('data/dataset.csv')
 
 df = load_data()
@@ -64,8 +62,22 @@ def filter_data(df, selected_genres, explicit_filter):
     return filtered_df
 
 def load_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    possible_paths = [
+        file_name,
+        f'./{file_name}',
+        f'Project/{file_name}',
+        os.path.join(os.path.dirname(__file__), file_name)
+    ]
+    
+    for path in possible_paths:
+        try:
+            if os.path.exists(path):
+                with open(path) as f:
+                    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+                return
+        except:
+            continue
+
 
 load_css('style.css')
 
