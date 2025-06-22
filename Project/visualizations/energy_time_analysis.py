@@ -25,9 +25,9 @@ def create_energy_time_analysis(data=None):
     
     ordered_categories = ['Low Energy (0-0.4)', 'Medium Energy (0.4-0.7)', 'High Energy (0.7+)']
     colors = {
-        'Low Energy (0-0.4)': '#43E97B',    
-        'Medium Energy (0.4-0.7)': '#1DB954', 
-        'High Energy (0.7+)': '#0D7D2C'     
+        'Low Energy (0-0.4)': '#3498db',      
+        'Medium Energy (0.4-0.7)': '#f39c12',
+        'High Energy (0.7+)': '#e74c3c' 
     }
     
     for category in ordered_categories:
