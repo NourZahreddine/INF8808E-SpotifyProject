@@ -153,7 +153,7 @@ graph_config = {
                 "insights": ["High-energy tracks often correlate with high danceability", "Vocal tracks generally outperform instrumental ones", "Sweet spots exist for feature combinations"]
             },
             {
-                "title": "Energy Correlation + Energy Trends Over Time", 
+                "title": "Energy Correlation + Energy Trends", 
                 "func": create_energy_time_analysis,
                 "description": "Track the evolution of energy levels in popular music and understand how energy correlates with other musical features.",
                 "insights": ["Music energy levels have evolved over decades", "Energy strongly correlates with listener engagement", "Genre-specific energy patterns exist"]
