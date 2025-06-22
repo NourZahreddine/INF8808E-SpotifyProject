@@ -208,7 +208,7 @@ graph_config = {
 
 if st.session_state.show_onboarding:
     st.info("""
-     **Welcome to Analyzing the Beat!** 
+     ** ** 
     
     This dashboard analyzes 114,000 Spotify tracks to uncover music trends and patterns. 
     
