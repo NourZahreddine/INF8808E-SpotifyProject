@@ -19,33 +19,30 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-@st.cache_data
+
 def load_data():
     return pd.read_csv('data/dataset.csv')
 
 df = load_data()
 
-@st.cache_data
+
 def filter_data_by_genre(df, selected_genres):
     if 'All Genres' in selected_genres or not selected_genres:
         return df
     return df[df['track_genre'].isin(selected_genres)]
 
-@st.cache_data
 def filter_data(df, selected_genres, explicit_filter):
     """Filter data by both genre and explicit content"""
     filtered_df = df.copy()
     
-    # Filter by genre
+
     if selected_genres and 'All Genres' not in selected_genres:
         filtered_df = filtered_df[filtered_df['track_genre'].isin(selected_genres)]
     
-    # Filter by explicit content
     if explicit_filter == "Explicit Only":
         filtered_df = filtered_df[filtered_df['explicit'] == True]
     elif explicit_filter == "Non-Explicit Only":
         filtered_df = filtered_df[filtered_df['explicit'] == False]
-    # "All" means no filtering by explicit content
     
     return filtered_df
 
@@ -184,7 +181,7 @@ graph_config = {
 
 if st.session_state.show_onboarding:
     st.info("""
-    👋 **Welcome to Analyzing the Beat!** 
+     **Welcome to Analyzing the Beat!** 
     
     This dashboard analyzes 114,000 Spotify tracks to uncover music trends and patterns. 
     
@@ -246,7 +243,6 @@ if st.session_state.show_filter:
     col1, col2 = st.columns([3, 1])
     
     with col1:
-        # Genre filter
         st.markdown("**Filter by Genre:**")
         selected_genres = st.multiselect(
             "Choose genres:",
@@ -255,7 +251,6 @@ if st.session_state.show_filter:
             key="genre_filter"
         )
         
-        # Explicit content filter
         st.markdown("**Filter by Content:**")
         explicit_options = ["All", "Explicit Only", "Non-Explicit Only"]
         explicit_filter = st.selectbox(
@@ -266,21 +261,17 @@ if st.session_state.show_filter:
         )
     
     with col2:
-        # Get the current filter selections from session state
         current_genres = st.session_state.get('genre_filter', ['All Genres'])
         current_explicit = st.session_state.get('explicit_filter', 'All')
         current_filtered_df = filter_data(df, current_genres, current_explicit)
         
-        # Display filter status
         st.markdown("**Filter Status:**")
         
-        # Genre status
         if 'All Genres' not in current_genres and current_genres:
             st.success(f"**{len(current_genres)}** genres selected")
         else:
             st.info("**All genres**")
         
-        # Explicit status
         if current_explicit == "Explicit Only":
             st.warning("**Explicit tracks only**")
         elif current_explicit == "Non-Explicit Only":
@@ -288,7 +279,7 @@ if st.session_state.show_filter:
         else:
             st.info("**All content types**")
         
-        # Total tracks
+
         st.metric("Filtered Tracks", f"{len(current_filtered_df):,}")
     
     st.markdown("---")
@@ -329,7 +320,7 @@ def display_graph_with_navigation(tab_name, tab_key):
     st.markdown(f"### {current_graph['title']}")
     st.markdown(f"<p style='color: #B8B8B8; font-style: italic; margin-bottom: 1rem;'>{current_graph['description']}</p>", unsafe_allow_html=True)
     
-    # Add helpful subtitle based on the graph type
+    
     if "Genre" in current_graph['title'] and "Popularity" in current_graph['title']:
         st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>💡 Hover over bars for detailed genre statistics and top tracks</i></p>", unsafe_allow_html=True)
     elif "Energy" in current_graph['title'] and "Time" in current_graph['title']:
