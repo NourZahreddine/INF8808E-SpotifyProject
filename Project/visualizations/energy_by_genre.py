@@ -69,14 +69,5 @@ def create_energy_by_genre(data=None):
         )
     ))
     
-    fig.add_annotation(
-        text="<i>Box plots show energy distribution: median (line), quartiles (box), and outliers (points)</i>",
-        xref="paper", yref="paper",
-        x=0.5, y=-0.15,
-        showarrow=False,
-        font=dict(size=10, color='#B8B8B8'),
-        align="center"
-    )
-    
     fig.update_layout(**layout_update)
     return fig 

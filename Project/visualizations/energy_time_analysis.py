@@ -19,7 +19,7 @@ def create_energy_time_analysis(data=None):
         ],
         specs=[[{"type": "xy"}],
                [{"type": "xy"}]],
-        vertical_spacing=0.35,
+        vertical_spacing=0.45,
         row_heights=[0.6, 0.4]
     )
     
@@ -89,12 +89,12 @@ def create_energy_time_analysis(data=None):
     
     layout_update = get_modern_layout()
     layout_update.update(dict(
-        height=600,
+        height=650,
         title_text="",
         legend=dict(
             orientation="h",
             yanchor="bottom",
-            y=1.02,
+            y=1.08,
             xanchor="center",
             x=0.5,
             bgcolor="rgba(25, 25, 25, 0.9)",
@@ -102,7 +102,7 @@ def create_energy_time_analysis(data=None):
             borderwidth=1,
             font=dict(color='#FFFFFF', size=11)
         ),
-        margin=dict(l=70, r=70, t=140, b=80)
+        margin=dict(l=70, r=70, t=180, b=100)
     ))
     
     fig.update_xaxes(
@@ -140,24 +140,6 @@ def create_energy_time_analysis(data=None):
     )
     
     fig.update_annotations(font=dict(size=14, color='#FFFFFF'))
-    
-    fig.add_annotation(
-        text="<i>Each point represents a track. Higher energy generally correlates with higher popularity.</i>",
-        xref="paper", yref="paper",
-        x=0.5, y=0.48,
-        xanchor="center",
-        showarrow=False,
-        font=dict(size=10, color='#B8B8B8')
-    )
-    
-    fig.add_annotation(
-        text="<i>Medium energy tracks show the highest average popularity scores.</i>",
-        xref="paper", yref="paper",
-        x=0.5, y=0.02,
-        xanchor="center",
-        showarrow=False,
-        font=dict(size=10, color='#B8B8B8')
-    )
     
     fig.update_layout(**layout_update)
     return fig 

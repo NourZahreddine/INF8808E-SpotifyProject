@@ -41,5 +41,11 @@ def get_modern_layout():
             zerolinecolor="rgba(29, 185, 84, 0.3)",
             tickfont=dict(size=11)
         ),
-        margin=dict(l=60, r=40, t=80, b=60)
+        margin=dict(l=60, r=40, t=80, b=80),
+        hoverlabel=dict(
+            bgcolor="rgba(25, 25, 25, 0.95)",
+            bordercolor="rgba(29, 185, 84, 0.8)",
+            font=dict(color="white", size=12, family='Inter'),
+            align="left"
+        )
     ) 

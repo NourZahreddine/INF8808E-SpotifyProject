@@ -35,14 +35,22 @@ html, body {
     left: 0;
     right: 0;
     background-color: #191919;
-    padding: 2rem 0 2rem 0;
+    padding: 2rem 3rem 2rem 3rem;
     flex-shrink: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(29, 185, 84, 0.2);
     height: 180px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.header-container > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1;
 }
 
 .main-header {
@@ -55,8 +63,8 @@ html, body {
     font-style: italic !important;
     margin-bottom: 0 !important;
     text-align: left;
-    padding-left: 3rem;
-    flex: 1;
+    padding-left: 0;
+    line-height: 1.1;
 }
 
 .subtitle {
@@ -66,7 +74,8 @@ html, body {
     margin-top: 0.3rem !important;
     margin-bottom: 0 !important;
     font-weight: 400;
-    padding-left: 3rem;
+    padding-left: 0;
+    text-align: left;
 }
 
 
@@ -215,7 +224,7 @@ button[kind="secondary"]:hover {
     color: #FFFFFF !important;
 }
 
-/* Genre filter styling for sidebar */
+
 .stSidebar .stMultiSelect > div > div {
     background-color: #2A2A2A !important;
     border: 2px solid rgba(29, 185, 84, 0.3) !important;
@@ -475,7 +484,7 @@ header {visibility: hidden;}
     box-shadow: 0 0 0 1px #43E97B !important;
 }
 
-/* Genre filter dropdown options */
+
 .stMultiSelect [data-baseweb="popover"] {
     background-color: #2A2A2A !important;
     border: 1px solid rgba(29, 185, 84, 0.3) !important;
@@ -518,18 +527,18 @@ header {visibility: hidden;}
 }
 
 
-.stMultiSelect label {
+.stMultiSelect label, .stSelectbox label {
     color: #FFFFFF !important;
     font-family: 'Inter', Arial, sans-serif !important;
     font-weight: 600 !important;
     font-size: 1.1rem !important;
 }
 
-.stMultiSelect > div > label {
+.stMultiSelect > div > label, .stSelectbox > div > label {
     color: #FFFFFF !important;
 }
 
-.stMultiSelect > div > label > div {
+.stMultiSelect > div > label > div, .stSelectbox > div > label > div {
     color: #FFFFFF !important;
 }
 
@@ -621,4 +630,151 @@ header {visibility: hidden;}
 .floating-filter .stInfo {
     background-color: rgba(67, 233, 123, 0.1) !important;
     border: 1px solid rgba(67, 233, 123, 0.3) !important;
+}
+
+
+.stMultiSelect > div > div {
+    background-color: #2A2A2A !important;
+    border: 2px solid rgba(29, 185, 84, 0.3) !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+}
+
+.stMultiSelect > div > div > div {
+    background-color: #2A2A2A !important;
+    color: #FFFFFF !important;
+}
+
+.stMultiSelect [data-baseweb="tag"] {
+    background-color: #1DB954 !important;
+    color: #FFFFFF !important;
+    border-radius: 5px !important;
+    margin: 2px !important;
+    font-size: 0.9rem !important;
+}
+
+.stMultiSelect [data-baseweb="tag"] span {
+    color: #FFFFFF !important;
+}
+
+.stMultiSelect [data-baseweb="tag"] svg {
+    fill: #FFFFFF !important;
+}
+
+.stMultiSelect [data-baseweb="input"] {
+    color: #FFFFFF !important;
+}
+
+.stMultiSelect [data-baseweb="input"]::placeholder {
+    color: #B8B8B8 !important;
+}
+
+.stMultiSelect [data-baseweb="select"] > div:first-child {
+    border-color: rgba(29, 185, 84, 0.3) !important;
+}
+
+.stMultiSelect [data-baseweb="select"]:hover > div:first-child {
+    border-color: #1DB954 !important;
+}
+
+.stMultiSelect [data-baseweb="select"]:focus-within > div:first-child {
+    border-color: #43E97B !important;
+    box-shadow: 0 0 0 1px #43E97B !important;
+}
+
+
+.stSelectbox > div > div {
+    background-color: #2A2A2A !important;
+    border: 2px solid rgba(29, 185, 84, 0.3) !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+}
+
+.stSelectbox > div > div > div {
+    background-color: #2A2A2A !important;
+    color: #FFFFFF !important;
+}
+
+.stSelectbox [data-baseweb="select"] {
+    background-color: #2A2A2A !important;
+    border: 2px solid rgba(29, 185, 84, 0.3) !important;
+    border-radius: 10px !important;
+}
+
+.stSelectbox [data-baseweb="select"]:hover {
+    border-color: #1DB954 !important;
+}
+
+.stSelectbox [data-baseweb="select"]:focus-within {
+    border-color: #43E97B !important;
+    box-shadow: 0 0 0 1px #43E97B !important;
+}
+
+.stSelectbox [data-baseweb="select"] > div {
+    background-color: #2A2A2A !important;
+    color: #FFFFFF !important;
+}
+
+.stSelectbox [data-baseweb="select"] input {
+    color: #FFFFFF !important;
+}
+
+.stSelectbox [data-baseweb="select"] svg {
+    fill: #FFFFFF !important;
+}
+
+.stSelectbox [data-baseweb="popover"] {
+    background-color: #2A2A2A !important;
+    border: 1px solid rgba(29, 185, 84, 0.3) !important;
+    border-radius: 10px !important;
+}
+
+.stSelectbox [data-baseweb="option"] {
+    background-color: #2A2A2A !important;
+    color: #FFFFFF !important;
+    font-family: 'Inter', Arial, sans-serif !important;
+}
+
+.stSelectbox [data-baseweb="option"]:hover {
+    background-color: rgba(29, 185, 84, 0.2) !important;
+}
+
+.stSelectbox [data-baseweb="option"][aria-selected="true"] {
+    background-color: #1DB954 !important;
+    color: #FFFFFF !important;
+}
+
+.stMetric {
+    background-color: transparent !important;
+}
+
+.stMetric > div {
+    background-color: transparent !important;
+}
+
+.stMetric label {
+    color: #FFFFFF !important;
+    font-family: 'Inter', Arial, sans-serif !important;
+    font-weight: 600 !important;
+}
+
+.stMetric [data-testid="metric-container"] {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.stMetric [data-testid="metric-container"] > div {
+    color: #FFFFFF !important;
+}
+
+.stMetric [data-testid="metric-container"] [data-testid="stMetricValue"] {
+    color: #FFFFFF !important;
+    font-family: 'Inter', Arial, sans-serif !important;
+    font-weight: 700 !important;
+}
+
+.stMetric [data-testid="metric-container"] [data-testid="stMetricLabel"] {
+    color: #FFFFFF !important;
+    font-family: 'Inter', Arial, sans-serif !important;
+    font-weight: 600 !important;
 }

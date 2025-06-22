@@ -31,6 +31,24 @@ def filter_data_by_genre(df, selected_genres):
         return df
     return df[df['track_genre'].isin(selected_genres)]
 
+@st.cache_data
+def filter_data(df, selected_genres, explicit_filter):
+    """Filter data by both genre and explicit content"""
+    filtered_df = df.copy()
+    
+    # Filter by genre
+    if selected_genres and 'All Genres' not in selected_genres:
+        filtered_df = filtered_df[filtered_df['track_genre'].isin(selected_genres)]
+    
+    # Filter by explicit content
+    if explicit_filter == "Explicit Only":
+        filtered_df = filtered_df[filtered_df['explicit'] == True]
+    elif explicit_filter == "Non-Explicit Only":
+        filtered_df = filtered_df[filtered_df['explicit'] == False]
+    # "All" means no filtering by explicit content
+    
+    return filtered_df
+
 def load_css(file_name):
     with open(file_name) as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -72,8 +90,13 @@ if 'show_filter' not in st.session_state:
     st.session_state.show_filter = False
 
 
+# Get current filter selection and apply filtering
 selected_genres = st.session_state.get('genre_filter', ['All Genres'])
 filtered_df = filter_data_by_genre(df, selected_genres)
+
+# Update filtered_df whenever genre_filter changes
+if 'genre_filter' in st.session_state:
+    filtered_df = filter_data_by_genre(df, st.session_state['genre_filter'])
 
 tab_descriptions = {
     "Track's Popularity": {
@@ -213,31 +236,60 @@ st.markdown(f"""
 if 'show_filter' not in st.session_state:
     st.session_state.show_filter = False
 
-if st.button("Filter by Genres", key="filter_toggle", help="Click to show/hide genre filter"):
+if st.button("Filters", key="filter_toggle", help="Click to show/hide genre filter"):
     st.session_state.show_filter = not st.session_state.show_filter
 
 
 if st.session_state.show_filter:
-    st.markdown("### Select Genres to Filter:")
+    st.markdown("### Select Filters:")
     
     col1, col2 = st.columns([3, 1])
     
     with col1:
+        # Genre filter
+        st.markdown("**Filter by Genre:**")
         selected_genres = st.multiselect(
             "Choose genres:",
             options=genre_options,
             default=st.session_state.get('genre_filter', ['All Genres']),
             key="genre_filter"
         )
+        
+        # Explicit content filter
+        st.markdown("**Filter by Content:**")
+        explicit_options = ["All", "Explicit Only", "Non-Explicit Only"]
+        explicit_filter = st.selectbox(
+            "Choose content type:",
+            options=explicit_options,
+            index=0,
+            key="explicit_filter"
+        )
     
     with col2:
-        filtered_df_temp = filter_data_by_genre(df, selected_genres)
-        if 'All Genres' not in selected_genres and selected_genres:
-            st.success(f"**{len(selected_genres)}** genres")
-            st.info(f"**{len(filtered_df_temp):,}** tracks")
+        # Get the current filter selections from session state
+        current_genres = st.session_state.get('genre_filter', ['All Genres'])
+        current_explicit = st.session_state.get('explicit_filter', 'All')
+        current_filtered_df = filter_data(df, current_genres, current_explicit)
+        
+        # Display filter status
+        st.markdown("**Filter Status:**")
+        
+        # Genre status
+        if 'All Genres' not in current_genres and current_genres:
+            st.success(f"**{len(current_genres)}** genres selected")
         else:
-            st.info(f"**All genres**")
-            st.info(f"**{len(df):,}** tracks")
+            st.info("**All genres**")
+        
+        # Explicit status
+        if current_explicit == "Explicit Only":
+            st.warning("**Explicit tracks only**")
+        elif current_explicit == "Non-Explicit Only":
+            st.success("**Clean tracks only**")
+        else:
+            st.info("**All content types**")
+        
+        # Total tracks
+        st.metric("Filtered Tracks", f"{len(current_filtered_df):,}")
     
     st.markdown("---")
 
@@ -245,6 +297,11 @@ st.markdown('<div class="main-content">', unsafe_allow_html=True)
 
 def display_graph_with_navigation(tab_name, tab_key):
     """Display current graph with navigation and enhanced information"""
+
+    current_genres = st.session_state.get('genre_filter', ['All Genres'])
+    current_explicit = st.session_state.get('explicit_filter', 'All')
+    current_filtered_df = filter_data(df, current_genres, current_explicit)
+    
     if tab_name not in st.session_state.graph_indices:
         st.session_state.graph_indices[tab_name] = 0
     
@@ -272,10 +329,18 @@ def display_graph_with_navigation(tab_name, tab_key):
     st.markdown(f"### {current_graph['title']}")
     st.markdown(f"<p style='color: #B8B8B8; font-style: italic; margin-bottom: 1rem;'>{current_graph['description']}</p>", unsafe_allow_html=True)
     
+    # Add helpful subtitle based on the graph type
+    if "Genre" in current_graph['title'] and "Popularity" in current_graph['title']:
+        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>💡 Hover over bars for detailed genre statistics and top tracks</i></p>", unsafe_allow_html=True)
+    elif "Energy" in current_graph['title'] and "Time" in current_graph['title']:
+        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>💡 Each point represents a track. Higher energy generally correlates with higher popularity.</i></p>", unsafe_allow_html=True)
+    elif "Energy" in current_graph['title'] and "Genre" in current_graph['title']:
+        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>💡 Box plots show energy distribution: median (line), quartiles (box), and outliers (points)</i></p>", unsafe_allow_html=True)
+    
 
     try:
         with st.spinner("Loading visualization..."):
-            fig = current_graph['func'](filtered_df)
+            fig = current_graph['func'](current_filtered_df)
             st.plotly_chart(fig, use_container_width=True, key=f"{tab_key}_{current_index}")
     except Exception as e:
         st.error(f"Error loading visualization: {str(e)}")
@@ -324,8 +389,12 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
-st.markdown("""
-<div style='text-align: center; color: #43E97B; font-size: 0.9rem; margin-top: 2rem;'>
-    INF8808E | Data from Spotify Dataset | 114,000 tracks analyzed across 20+ audio features
+current_genres = st.session_state.get('genre_filter', ['All Genres'])
+current_explicit = st.session_state.get('explicit_filter', 'All')
+current_filtered_df = filter_data(df, current_genres, current_explicit)
+
+st.markdown(f"""
+<div style='text-align: center; color: #FFFFFF; font-size: 0.9rem; margin-top: 2rem;'>
+    INF8808E | Data from Spotify Dataset | <strong>{len(current_filtered_df):,} tracks</strong> analyzed across 20+ audio features
 </div>
 """, unsafe_allow_html=True)
