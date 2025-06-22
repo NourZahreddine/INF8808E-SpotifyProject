@@ -72,12 +72,11 @@ def create_danceability_engagement(data=None):
             hovertemplate=
             "<b>%{x}</b><br>" +
             "Average Popularity: <b>%{y:.1f}</b><br>" +
-            "Total Tracks: <b>%{customdata[0]:,}</b><br>" +
-            "Std Deviation: %{customdata[1]:.1f}<br>" +
-            "Average Energy: %{customdata[2]:.3f}<br>" +
-            "Average Valence: %{customdata[3]:.3f}" +
+            "Std Deviation: %{customdata[0]:.1f}<br>" +
+            "Average Energy: %{customdata[1]:.3f}<br>" +
+            "Average Valence: %{customdata[2]:.3f}" +
             "<extra></extra>",
-            customdata=engagement_stats[['track_count', 'popularity_std', 'avg_energy', 'avg_valence']].values,
+            customdata=engagement_stats[['popularity_std', 'avg_energy', 'avg_valence']].values,
             showlegend=False
         ),
         row=1, col=2

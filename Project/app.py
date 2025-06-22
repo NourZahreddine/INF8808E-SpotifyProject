@@ -349,11 +349,11 @@ def display_graph_with_navigation(tab_name, tab_key):
     
     
     if "Genre" in current_graph['title'] and "Popularity" in current_graph['title']:
-        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>💡 Hover over bars for detailed genre statistics and top tracks</i></p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>Hover over bars for detailed genre statistics and top tracks</i></p>", unsafe_allow_html=True)
     elif "Energy" in current_graph['title'] and "Time" in current_graph['title']:
-        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>💡 Each point represents a track. Higher energy generally correlates with higher popularity.</i></p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>Each point represents a track. Higher energy generally correlates with higher popularity.</i></p>", unsafe_allow_html=True)
     elif "Energy" in current_graph['title'] and "Genre" in current_graph['title']:
-        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>💡 Box plots show energy distribution: median (line), quartiles (box), and outliers (points)</i></p>", unsafe_allow_html=True)
+        st.markdown("<p style='color: #B8B8B8; font-size: 0.9rem; margin-bottom: 1rem;'><i>Box plots show energy distribution: median (line), quartiles (box), and outliers (points)</i></p>", unsafe_allow_html=True)
     
 
     try:
@@ -363,12 +363,6 @@ def display_graph_with_navigation(tab_name, tab_key):
     except Exception as e:
         st.error(f"Error loading visualization: {str(e)}")
         st.info("Please try refreshing the page or navigating to a different graph.")
-    
-
-    if 'insights' in current_graph:
-        with st.expander("Key Insights", expanded=False):
-            for insight in current_graph['insights']:
-                st.markdown(f"• {insight}")
     
 
     col1, col2, col3, col4, col5 = st.columns([2, 1, 1, 1, 2])

@@ -82,19 +82,13 @@ def create_genre_popularity_chart(data=None):
         textposition='outside',
         texttemplate='%{x:.1f}',
         textfont=dict(color='#FFFFFF', size=10, family='Inter'),
-        hovertemplate=
-        "<b style='color:#43E97B; font-size:14px;'>%{y}</b><br>" +
-        "<span style='color:#FFFFFF'>Average Popularity: <b>%{x:.1f}</b></span><br>" +
-        "<span style='color:#FFFFFF'>Total Tracks: <b>%{customdata[3]:,}</b></span><br>" +
-        "<span style='color:#FFFFFF'>Std Deviation: <b>%{customdata[4]:.1f}</b></span><br>" +
-        "<span style='color:#FFFFFF'>Average Duration: <b>%{customdata[0]}</b></span><br>" +
-        "<span style='color:#FFFFFF'>Average Energy: <b>%{customdata[5]:.3f}</b></span><br>" +
-        "<span style='color:#FFFFFF'>Average Danceability: <b>%{customdata[6]:.3f}</b></span><br>" +
-        "<br><span style='color:#43E97B'>Top Track:</span><br>" +
-        "<span style='color:#FFFFFF'><b>%{customdata[1]}</b></span><br>" +
-        "<span style='color:#FFFFFF'>by %{customdata[2]}</span><br>" +
-        "<span style='color:#FFFFFF'>Popularity: <b>%{customdata[7]}</b></span>" +
-        "<extra></extra>"
+        hovertemplate="<b>%{y}</b><br>" +
+                      "<span style='color:#FFFFFF'>Average Popularity: <b>%{x:.1f}</b></span><br>" +
+                      "<span style='color:#43E97B'>Top Track: %{customdata[0]}</span><br>" +
+                      "<span style='color:#43E97B'>Top Artist: %{customdata[1]}</span><br>" +
+                      "<span style='color:#FFFFFF'>Top Track Popularity: <b>%{customdata[2]}</b></span>" +
+                      "<extra></extra>",
+        customdata=top_genres[['most_popular_track', 'top_artist', 'max_popularity']].values
     )
     
     layout_update = get_modern_layout()

@@ -78,10 +78,9 @@ def create_energy_time_analysis(data=None):
             hovertemplate=
             "<b>%{x}</b><br>" +
             "Average Popularity: <b>%{y:.1f}</b><br>" +
-            "Total Tracks: <b>%{customdata[0]:,}</b><br>" +
-            "Std Deviation: <b>%{customdata[1]:.1f}</b>" +
+            "Std Deviation: <b>%{customdata[0]:.1f}</b>" +
             "<extra></extra>",
-            customdata=energy_stats[['track_count', 'std_popularity']].values,
+            customdata=energy_stats[['std_popularity']].values,
             showlegend=False
         ),
         row=2, col=1
