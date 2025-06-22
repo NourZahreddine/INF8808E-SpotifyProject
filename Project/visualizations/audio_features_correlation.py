@@ -105,7 +105,7 @@ def create_audio_features_correlation(data=None):
             hovertemplate="<b>%{y} + %{x}</b><br>Avg Popularity: <b>%{z:.1f}</b><extra></extra>",
             colorbar=dict(
                 title="Popularity",
-                titlefont=dict(color='#FFFFFF', size=12),
+                title_font=dict(color='#FFFFFF', size=12),
                 tickfont=dict(color='#FFFFFF', size=10),
                 len=0.5,
                 y=0.25
@@ -123,7 +123,14 @@ def create_audio_features_correlation(data=None):
             bgcolor="rgba(25, 25, 25, 0.9)",
             bordercolor="rgba(29, 185, 84, 0.5)",
             font_color="white"
-        )
+        ),
+        xaxis2=dict(
+            title="<b>Instrumentalness (0=Vocal, 1=Instrumental)</b>",
+            gridcolor="rgba(29, 185, 84, 0.2)",
+            color='#B8B8B8',
+            zerolinecolor="rgba(29, 185, 84, 0.3)",
+            title_font=dict(color='#FFFFFF', size=12),
+        ),
     ))
     
     fig.update_layout(**layout_update)

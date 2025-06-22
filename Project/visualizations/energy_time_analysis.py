@@ -111,7 +111,7 @@ def create_energy_time_analysis(data=None):
         gridcolor="rgba(29, 185, 84, 0.2)",
         color='#B8B8B8',
         tickfont=dict(size=11),
-        titlefont=dict(size=12)
+        title_font=dict(size=12)
     )
     fig.update_yaxes(
         title_text="<b>Popularity Score</b>", 
@@ -119,7 +119,7 @@ def create_energy_time_analysis(data=None):
         gridcolor="rgba(29, 185, 84, 0.2)",
         color='#B8B8B8',
         tickfont=dict(size=11),
-        titlefont=dict(size=12)
+        title_font=dict(size=12)
     )
     fig.update_xaxes(
         title_text="<b>Energy Category</b>", 
@@ -127,7 +127,7 @@ def create_energy_time_analysis(data=None):
         gridcolor="rgba(29, 185, 84, 0.2)",
         color='#B8B8B8',
         tickfont=dict(size=11),
-        titlefont=dict(size=12)
+        title_font=dict(size=12)
     )
     fig.update_yaxes(
         title_text="<b>Average Popularity</b>", 
@@ -135,7 +135,7 @@ def create_energy_time_analysis(data=None):
         gridcolor="rgba(29, 185, 84, 0.2)",
         color='#B8B8B8',
         tickfont=dict(size=11),
-        titlefont=dict(size=12),
+        title_font=dict(size=12),
         range=[energy_stats['avg_popularity'].min() * 0.95, energy_stats['avg_popularity'].max() * 1.1]
     )
     

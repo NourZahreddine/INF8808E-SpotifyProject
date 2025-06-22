@@ -116,11 +116,9 @@ if 'show_filter' not in st.session_state:
     st.session_state.show_filter = False
 
 
-# Get current filter selection and apply filtering
 selected_genres = st.session_state.get('genre_filter', ['All Genres'])
 filtered_df = filter_data_by_genre(df, selected_genres)
 
-# Update filtered_df whenever genre_filter changes
 if 'genre_filter' in st.session_state:
     filtered_df = filter_data_by_genre(df, st.session_state['genre_filter'])
 

@@ -100,10 +100,10 @@ def create_danceability_engagement(data=None):
         )
     ))
     
-    fig.update_xaxes(title_text="<b>Danceability Level</b>", row=1, col=1, titlefont=dict(size=12))
-    fig.update_yaxes(title_text="<b>Popularity Score</b>", row=1, col=1, titlefont=dict(size=12))
-    fig.update_xaxes(title_text="<b>Danceability Range</b>", row=1, col=2, titlefont=dict(size=12))
-    fig.update_yaxes(title_text="<b>Average Popularity</b>", row=1, col=2, titlefont=dict(size=12))
+    fig.update_xaxes(title_text="<b>Danceability Level</b>", row=1, col=1, title_font=dict(size=12))
+    fig.update_yaxes(title_text="<b>Popularity Score</b>", row=1, col=1, title_font=dict(size=12))
+    fig.update_xaxes(title_text="<b>Danceability Range</b>", row=1, col=2, title_font=dict(size=12))
+    fig.update_yaxes(title_text="<b>Average Popularity</b>", row=1, col=2, title_font=dict(size=12))
     
     max_pop = engagement_stats['avg_popularity'].max()
     fig.update_yaxes(range=[0, max_pop * 1.15], row=1, col=2)

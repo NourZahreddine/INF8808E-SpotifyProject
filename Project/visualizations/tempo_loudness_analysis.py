@@ -27,8 +27,9 @@ def create_tempo_loudness_analysis(data=None):
             opacity=0.7,
             colorbar=dict(
                 title="Loudness (dB)",
-                titlefont=dict(color='#FFFFFF', size=11),
-                tickfont=dict(color='#FFFFFF', size=9)
+                title_font=dict(color='#FFFFFF', size=11),
+                tickfont=dict(color='#FFFFFF', size=10),
+                len=0.6
             ),
             line=dict(width=0.3, color='#FFFFFF'),
             cmin=sample_df['loudness'].quantile(0.05), 
