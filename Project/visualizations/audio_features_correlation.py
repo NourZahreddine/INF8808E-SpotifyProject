@@ -125,7 +125,7 @@ def create_audio_features_correlation(data=None):
             font_color="white"
         ),
         xaxis2=dict(
-            title="<b>Instrumentalness (0=Vocal, 1=Instrumental)</b>",
+            title="|",
             gridcolor="rgba(29, 185, 84, 0.2)",
             color='#B8B8B8',
             zerolinecolor="rgba(29, 185, 84, 0.3)",
