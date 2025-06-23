@@ -55,12 +55,12 @@ An interactive Streamlit dashboard analyzing 114,000 Spotify tracks to see music
 ## Project Structure
 
 ```
-├── app.py                 # Main Streamlit application
-├── style.css             # Custom CSS styling
-├── requirements.txt      # Python dependencies
-├── README.md            # Project documentation
+├── app.py               
+├── style.css          
+├── requirements.txt    
+├── README.md          
 ├── data/
-│   └── dataset.csv      # Spotify tracks dataset (114,000+ tracks)
+│   └── dataset.csv 
 └── visualizations/
     ├── __init__.py
     ├── utils.py
