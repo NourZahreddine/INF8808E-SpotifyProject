@@ -6,9 +6,6 @@ import numpy as np
 from scipy import stats
 import os
 
-# Remove global dataset loading - will be handled in main app
-# df = pd.read_csv('data/dataset.csv')
-
 PRIMARY_BLUE = '#667EEA'
 SECONDARY_PURPLE = '#764BA2'
 ACCENT_PINK = '#F093FB'
