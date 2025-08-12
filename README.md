@@ -82,6 +82,3 @@ The application analyzes a comprehensive Spotify dataset containing:
 - **114** unique genres
 - Track metadata including popularity scores, energy levels, danceability, and more
 
----
-
-*This project was developed as part of the INF8808E Data Visualization course at École Polytechnique de Montréal.*
