@@ -4,15 +4,6 @@
 **Summer 2025**  
 **June 22, 2025**
 
-## Team 15
-
-### Team Composition
-- **Mohammad Darandeh** - 2352903
-- **Nour Zahreddine** - 2167661  
-- **Ismail Sebbahi** - 2012128
-- **Fatemeh Nikkhah** - 2266659
-- **Bourennani Juba** - 1934122
-- **Maha Mubarak** - 2402357
 
 ---
 
