@@ -1,6 +1,6 @@
  # ANALYZING THE BEAT
 
-**INF8808E - Data Visualization**  
+**Data Visualization**  
 **Summer 2025**  
 **June 22, 2025**
 
